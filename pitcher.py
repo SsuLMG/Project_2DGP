@@ -104,8 +104,23 @@ class Pitch:
         boy.x = clamp(25, boy.x, 1600 - 25)
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
 
+    @staticmethod
+    def draw(boy):
+        if boy.frame == 0:
+            boy.image.clip_draw(0, 0, 40, 53, boy.x, boy.y)
+        if boy.frame == 1:
+            boy.image.clip_draw(40, 0, 32, 53, boy.x, boy.y)
+        if boy.frame == 2:
+            boy.image.clip_draw(72, 0, 57, 53, boy.x, boy.y)
+        if boy.frame == 3:
+            boy.image.clip_draw(129, 0, 67, 53, boy.x, boy.y)
+        if boy.frame == 4:
+            boy.image.clip_draw(196, 0, 62, 53, boy.x, boy.y)
+        if boy.frame == 5:
+            boy.image.clip_draw(258, 0, 54, 53, boy.x, boy.y)
 
-
+#(이미지에서 x위치, y위치, 잘라낼 가로폭, 세로폭, 화면상에서 x위치 , y위치,화면상에서 출력할 이미지 가로폭, 세로폭)
+# 40x53, 72x53, 129x53, 196x53, 258x53, 312x53
 class StateMachine:
     def __init__(self, boy):
         self.boy = boy
