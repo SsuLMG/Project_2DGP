@@ -22,6 +22,9 @@ def left_up(e):
 def space_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 
+def space_up(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_SPACE
+
 def time_out(e):
     return e[0] == 'TIME_OUT'
 
@@ -56,11 +59,6 @@ class Idle:
 
     @staticmethod
     def enter(hitter, e):
-        if hitter.face_dir == -1:
-            hitter.action = 2
-        elif hitter.face_dir == 1:
-            hitter.action = 3
-        hitter.dir = 0
         hitter.frame = 0
         hitter.wait_time = get_time() # pico2d import 필요
         pass
@@ -126,9 +124,8 @@ class StateMachine:
         self.hitter = hitter
         self.cur_state = Idle
         self.transitions = {
-            #Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, space_down: Idle},
-            #Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle, space_down: Run},
-            #Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run}
+            Idle: {space_down: Hit},
+            Hit: {space_up: Idle}
         }
 
     def start(self):
