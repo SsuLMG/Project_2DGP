@@ -55,75 +55,75 @@ FRAMES_PER_ACTION = 8
 class Idle:
 
     @staticmethod
-    def enter(boy, e):
-        if boy.face_dir == -1:
-            boy.action = 2
-        elif boy.face_dir == 1:
-            boy.action = 3
-        boy.dir = 0
-        boy.frame = 0
-        boy.wait_time = get_time() # pico2d import 필요
+    def enter(hitter, e):
+        if hitter.face_dir == -1:
+            hitter.action = 2
+        elif hitter.face_dir == 1:
+            hitter.action = 3
+        hitter.dir = 0
+        hitter.frame = 0
+        hitter.wait_time = get_time() # pico2d import 필요
         pass
 
     @staticmethod
-    def exit(boy, e):
+    def exit(hitter, e):
         if space_down(e):
-            boy.fire_ball()
+            hitter.fire_ball()
         pass
 
     @staticmethod
-    def do(boy):
-        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        if get_time() - boy.wait_time > 2:
-            boy.state_machine.handle_event(('TIME_OUT', 0))
+    def do(hitter):
+        hitter.frame = (hitter.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        if get_time() - hitter.wait_time > 2:
+            hitter.state_machine.handle_event(('TIME_OUT', 0))
 
     @staticmethod
-    def draw(boy):
-        boy.image.clip_draw(int(boy.frame) * 100, boy.action * 100, 100, 100, boy.x, boy.y)
+    def draw(hitter):
+        hitter.image.clip_draw(int(hitter.frame) * 100, hitter.action * 100, 100, 100, hitter.x, hitter.y)
 
 
-class Pitch:
+class Hit:
     @staticmethod
-    def enter(boy, e):
+    def enter(hitter, e):
         if right_down(e) or left_up(e):  # 오른쪽으로 RUN
-            boy.dir, boy.action, boy.face_dir = 1, 1, 1
+            hitter.dir, hitter.action, hitter.face_dir = 1, 1, 1
         elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
-            boy.dir, boy.action, boy.face_dir = -1, 0, -1
+            hitter.dir, hitter.action, hitter.face_dir = -1, 0, -1
 
     @staticmethod
-    def exit(boy, e):
+    def exit(hitter, e):
         if space_down(e):
-            boy.fire_ball()
+            hitter.fire_ball()
 
         pass
 
     @staticmethod
-    def do(boy):
+    def do(hitter):
         # boy.frame = (boy.frame + 1) % 8
-        boy.x += boy.dir * RUN_SPEED_PPS * game_framework.frame_time
-        boy.x = clamp(25, boy.x, 1600 - 25)
-        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        hitter.x = 495
+        hitter.y = 50
+        hitter.frame = (hitter.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
 
     @staticmethod
-    def draw(boy):
-        if boy.frame == 0:
-            boy.image.clip_draw(0, 0, 40, 53, boy.x, boy.y)
-        if boy.frame == 1:
-            boy.image.clip_draw(40, 0, 32, 53, boy.x, boy.y)
-        if boy.frame == 2:
-            boy.image.clip_draw(72, 0, 57, 53, boy.x, boy.y)
-        if boy.frame == 3:
-            boy.image.clip_draw(129, 0, 67, 53, boy.x, boy.y)
-        if boy.frame == 4:
-            boy.image.clip_draw(196, 0, 62, 53, boy.x, boy.y)
-        if boy.frame == 5:
-            boy.image.clip_draw(258, 0, 54, 53, boy.x, boy.y)
+    def draw(hitter):
+        if hitter.frame == 0:
+            hitter.image.clip_draw(0, 0, 40, 53, hitter.x, hitter.y)
+        if hitter.frame == 1:
+            hitter.image.clip_draw(40, 0, 32, 53, hitter.x, hitter.y)
+        if hitter.frame == 2:
+            hitter.image.clip_draw(72, 0, 57, 53, hitter.x, hitter.y)
+        if hitter.frame == 3:
+            hitter.image.clip_draw(129, 0, 67, 53, hitter.x, hitter.y)
+        if hitter.frame == 4:
+            hitter.image.clip_draw(196, 0, 62, 53, hitter.x, hitter.y)
+        if hitter.frame == 5:
+            hitter.image.clip_draw(258, 0, 54, 53, hitter.x, hitter.y)
 
 #(이미지에서 x위치, y위치, 잘라낼 가로폭, 세로폭, 화면상에서 x위치 , y위치,화면상에서 출력할 이미지 가로폭, 세로폭)
 # 40x53, 72x53, 129x53, 196x53, 258x53, 312x53
 class StateMachine:
-    def __init__(self, boy):
-        self.boy = boy
+    def __init__(self, hitter):
+        self.hitter = hitter
         self.cur_state = Idle
         self.transitions = {
             #Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, space_down: Idle},
@@ -132,29 +132,29 @@ class StateMachine:
         }
 
     def start(self):
-        self.cur_state.enter(self.boy, ('NONE', 0))
+        self.cur_state.enter(self.hitter, ('NONE', 0))
 
     def update(self):
-        self.cur_state.do(self.boy)
+        self.cur_state.do(self.hitter)
 
     def handle_event(self, e):
         for check_event, next_state in self.transitions[self.cur_state].items():
             if check_event(e):
-                self.cur_state.exit(self.boy, e)
+                self.cur_state.exit(self.hitter, e)
                 self.cur_state = next_state
-                self.cur_state.enter(self.boy, e)
+                self.cur_state.enter(self.hitter, e)
                 return True
 
         return False
 
     def draw(self):
-        self.cur_state.draw(self.boy)
+        self.cur_state.draw(self.hitter)
 
 
 
 
 
-class Boy:
+class Hitter:
     def __init__(self):
         self.x, self.y = 50, 90
         self.frame = 0
