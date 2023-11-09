@@ -5,9 +5,10 @@ import game_framework
 
 import game_world
 from grass import Grass
-from boy import Boy
+#from boy import Boy
 from ball import Ball
 from zombie import Zombie
+from hitter import Hitter
 
 # boy = None
 
@@ -19,19 +20,19 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         else:
-            boy.handle_event(event)
+            hitter.handle_event(event)
 
 def init():
     global grass
-    global boy
+    global hitter
 
     running = True
 
     grass = Grass()
     game_world.add_object(grass, 0)
 
-    boy = Boy()
-    game_world.add_object(boy, 1)
+    hitter = Hitter()
+    game_world.add_object(hitter, 1)
 
     # fill here
 

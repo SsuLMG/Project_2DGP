@@ -77,7 +77,7 @@ class Idle:
 
     @staticmethod
     def draw(hitter):
-        hitter.image.clip_draw(int(hitter.frame) * 100, hitter.action * 100, 100, 100, hitter.x, hitter.y)
+        hitter.image.clip_draw(0, 0, 40, 53, hitter.x, hitter.y)
 
 
 class Hit:
@@ -97,10 +97,10 @@ class Hit:
 
     @staticmethod
     def do(hitter):
-        # boy.frame = (boy.frame + 1) % 8
+        hitter.frame = (hitter.frame + 1) % 6
         hitter.x = 495
         hitter.y = 50
-        hitter.frame = (hitter.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        #hitter.frame = (hitter.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
 
     @staticmethod
     def draw(hitter):
@@ -153,12 +153,12 @@ class StateMachine:
 
 class Hitter:
     def __init__(self):
-        self.x, self.y = 50, 90
+        self.x, self.y = 495, 50
         self.frame = 0
         self.action = 3
         self.face_dir = 1
         self.dir = 0
-        self.image = load_image('animation_sheet.png')
+        self.image = load_image('Chopper_batter_animation.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
