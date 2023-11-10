@@ -41,7 +41,7 @@ RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 
 # Boy Action Speed
-TIME_PER_ACTION = 0.5
+TIME_PER_ACTION = 1
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
@@ -83,6 +83,7 @@ class Idle:
 class Hit:
     @staticmethod
     def enter(hitter, e):
+        hitter.frame = 0
         if right_down(e) or left_up(e):  # 오른쪽으로 RUN
             hitter.dir, hitter.action, hitter.face_dir = 1, 1, 1
         elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
@@ -90,31 +91,32 @@ class Hit:
 
     @staticmethod
     def exit(hitter, e):
-        if space_down(e):
-            hitter.fire_ball()
+        #if space_down(e):
+        #    hitter.fire_ball()
 
         pass
 
     @staticmethod
     def do(hitter):
-        hitter.frame = (hitter.frame + 1) % 6
+        #hitter.frame = (hitter.frame + 1) % 6
+        print(hitter.frame)
         hitter.x = 495
         hitter.y = 50
-        #hitter.frame = (hitter.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        hitter.frame = (hitter.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
 
     @staticmethod
     def draw(hitter):
-        if hitter.frame == 0:
+        if int(hitter.frame) == 0:
             hitter.image.clip_draw(0, 0, 40, 53, hitter.x, hitter.y)
-        if hitter.frame == 1:
+        if int(hitter.frame) == 1:
             hitter.image.clip_draw(40, 0, 32, 53, hitter.x, hitter.y)
-        if hitter.frame == 2:
+        if int(hitter.frame) == 2:
             hitter.image.clip_draw(72, 0, 57, 53, hitter.x, hitter.y)
-        if hitter.frame == 3:
+        if int(hitter.frame) == 3:
             hitter.image.clip_draw(129, 0, 67, 53, hitter.x, hitter.y)
-        if hitter.frame == 4:
+        if int(hitter.frame) == 4:
             hitter.image.clip_draw(196, 0, 62, 53, hitter.x, hitter.y)
-        if hitter.frame == 5:
+        if int(hitter.frame) == 5:
             hitter.image.clip_draw(258, 0, 54, 53, hitter.x, hitter.y)
 
 #(이미지에서 x위치, y위치, 잘라낼 가로폭, 세로폭, 화면상에서 x위치 , y위치,화면상에서 출력할 이미지 가로폭, 세로폭)
@@ -147,10 +149,6 @@ class StateMachine:
     def draw(self):
         self.cur_state.draw(self.hitter)
 
-
-
-
-
 class Hitter:
     def __init__(self):
         self.x, self.y = 495, 50
@@ -179,6 +177,6 @@ class Hitter:
 
     def draw(self):
         self.state_machine.draw()
-        self.font.draw(self.x-10, self.y + 50, f'{self.ball_count:02d}', (255, 255, 0))
+        #self.font.draw(self.x-10, self.y + 50, f'{self.ball_count:02d}', (255, 255, 0))
 
     # fill here
