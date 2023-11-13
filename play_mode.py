@@ -9,6 +9,7 @@ from grass import Grass
 from ball import Ball
 from zombie import Zombie
 from hitter import Hitter
+from pitcher import Pitcher
 
 # boy = None
 
@@ -21,10 +22,12 @@ def handle_events():
             game_framework.quit()
         else:
             hitter.handle_event(event)
+            pitcher.handle_event(event)
 
 def init():
     global grass
     global hitter
+    global pitcher
 
     running = True
 
@@ -33,6 +36,9 @@ def init():
 
     hitter = Hitter()
     game_world.add_object(hitter, 1)
+
+    pitcher = Pitcher()
+    game_world.add_object(pitcher, 1)
 
     # fill here
 
