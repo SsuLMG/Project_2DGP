@@ -9,7 +9,7 @@ class HitBall:
     def __init__(self, x = 495, y = 50, velocity = 1):
         if HitBall.image == None:
             HitBall.image = load_image('baseball.png')
-        self.x, self.y, self.velocity = x + 75, y, velocity
+        self.x, self.y, self.velocity = x + 80, y, velocity
 
     def draw(self):
         self.image.draw(self.x, self.y)
