@@ -3,19 +3,19 @@ import game_world
 import game_framework
 import random
 
-class Ball:
+class HitBall:
     image = None
 
     def __init__(self, x = 495, y = 50, velocity = 1):
-        if Ball.image == None:
-            Ball.image = load_image('baseball.png')
-        self.x, self.y, self.velocity = x, y, velocity
+        if HitBall.image == None:
+            HitBall.image = load_image('baseball.png')
+        self.x, self.y, self.velocity = x + 75, y, velocity
 
     def draw(self):
         self.image.draw(self.x, self.y)
 
     def update(self):
-        self.y -= self.velocity * random.randint(10,100) * game_framework.frame_time
+        self.y += self.velocity * random.randint(10,100) * game_framework.frame_time
 
         if self.x < 25 or self.x > 1100:
             game_world.remove_object(self)

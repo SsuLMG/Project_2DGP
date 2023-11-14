@@ -1,6 +1,6 @@
 from pico2d import get_time, load_image, load_font, clamp, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, \
     draw_rectangle
-from ball import Ball
+from hitball import HitBall
 import game_world
 import game_framework
 
@@ -65,8 +65,8 @@ class Idle:
 
     @staticmethod
     def exit(hitter, e):
-        if space_down(e):
-            hitter.fire_ball()
+        #if space_down(e):
+        #    hitter.fire_ball()
         pass
 
     @staticmethod
@@ -118,6 +118,8 @@ class Hit:
             hitter.image.clip_draw(196, 0, 62, 53, hitter.x, hitter.y)
         if int(hitter.frame) == 5:
             hitter.image.clip_draw(258, 0, 54, 53, hitter.x, hitter.y)
+        if hitter.frame + 0.03 > 6:
+            hitter.fire_ball()
 
 #(이미지에서 x위치, y위치, 잘라낼 가로폭, 세로폭, 화면상에서 x위치 , y위치,화면상에서 출력할 이미지 가로폭, 세로폭)
 # 40x53, 72x53, 129x53, 196x53, 258x53, 312x53
@@ -160,13 +162,13 @@ class Hitter:
         self.font = load_font('ENCR10B.TTF', 16)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.ball_count = 10
+        self.ball_count = 100
 
 
     def fire_ball(self):
         if self.ball_count > 0:
             self.ball_count -= 1
-            ball = Ball(self.x, self.y, self.face_dir*10)
+            ball = HitBall(self.x, self.y, self.face_dir*10)
             game_world.add_object(ball)
 
     def update(self):

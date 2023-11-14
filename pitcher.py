@@ -74,8 +74,8 @@ class Idle:
 
     @staticmethod
     def exit(pitcher, e):
-        if space_down(e):
-            pitcher.fire_ball()
+        #if a_down(e):
+        #    pitcher.fire_ball()
         pass
 
     @staticmethod
@@ -130,6 +130,8 @@ class Pitch:
             pitcher.image.clip_draw(112, 0, 16, 33, pitcher.x, pitcher.y,50,50)
         if int(pitcher.frame) == 7:
             pitcher.image.clip_draw(127, 0, 18, 33, pitcher.x, pitcher.y,50,50)
+        if pitcher.frame + 0.03 > 8:
+            pitcher.fire_ball()
 
 #(이미지에서 x위치, y위치, 잘라낼 가로폭, 세로폭, 화면상에서 x위치 , y위치,화면상에서 출력할 이미지 가로폭, 세로폭)
 # 16x33, 32x33, 48x33, 63x33, 87x33, 112x33, 127x33, 145x33
@@ -176,7 +178,7 @@ class Pitcher:
         self.font = load_font('ENCR10B.TTF', 16)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.ball_count = 10
+        self.ball_count = 100
 
 
     def fire_ball(self):
