@@ -13,7 +13,7 @@ from hitter import Hitter
 from pitcher import Pitcher
 from fielder import Fielder
 from fielder_2b import Fielder_2b
-
+from fielder_ss import Fielder_ss
 # boy = None
 
 def handle_events():
@@ -48,7 +48,9 @@ def init():
 
     fielder_2b = Fielder_2b()
     game_world.add_object(fielder_2b, 1)
-    # fill here
+
+    fielder_ss = Fielder_ss()
+    game_world.add_object(fielder_ss, 1)
 
 
 
