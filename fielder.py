@@ -77,7 +77,7 @@ class StateMachine:
 
 class Fielder:
     def __init__(self):
-        self.x, self.y = 1045, 317
+        self.x, self.y = 850, 200
         self.frame = 0
         self.action = 3
         self.face_dir = 1
