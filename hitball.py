@@ -22,5 +22,3 @@ class HitBall:
 
         if self.y < 50 or self.y > 700:
             game_world.remove_object(self)
-
-    # fill here
