@@ -12,6 +12,7 @@ from zombie import Zombie
 from hitter import Hitter
 from pitcher import Pitcher
 from fielder import Fielder
+from fielder_2b import Fielder_2b
 
 # boy = None
 
@@ -44,6 +45,9 @@ def init():
 
     fielder = Fielder()
     game_world.add_object(fielder, 1)
+
+    fielder_2b = Fielder_2b()
+    game_world.add_object(fielder_2b, 1)
     # fill here
 
 
