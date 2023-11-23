@@ -179,6 +179,3 @@ class Hitter:
 
     def draw(self):
         self.state_machine.draw()
-        #self.font.draw(self.x-10, self.y + 50, f'{self.ball_count:02d}', (255, 255, 0))
-
-    # fill here
