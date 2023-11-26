@@ -31,8 +31,6 @@ def time_out(e):
 # time_out = lambda e : e[0] == 'TIME_OUT'
 
 
-
-
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0  # Km / Hour
@@ -44,14 +42,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 TIME_PER_ACTION = 1
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
-
-
-
-
-
-
-
-
 
 
 
