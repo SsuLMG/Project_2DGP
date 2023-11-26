@@ -16,6 +16,8 @@ from fielder_2b import Fielder_2b
 from fielder_ss import Fielder_ss
 from fielder_3b import Fielder_3b
 from fielder_lf import Fielder_lf
+from fielder_cf import Fielder_cf
+from fielder_rf import Fielder_rf
 # boy = None
 
 def handle_events():
@@ -59,6 +61,12 @@ def init():
 
     fielder_lf = Fielder_lf()
     game_world.add_object(fielder_lf, 1)
+
+    fielder_cf = Fielder_cf()
+    game_world.add_object(fielder_cf, 1)
+
+    fielder_rf = Fielder_rf()
+    game_world.add_object(fielder_rf, 1)
 
 
 def finish():
