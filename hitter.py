@@ -1,5 +1,7 @@
 from pico2d import get_time, load_image, load_font, clamp, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, \
     draw_rectangle
+from sdl2 import SDLK_h
+
 from hitball import HitBall
 import game_world
 import game_framework
@@ -19,11 +21,12 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
-def space_down(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
 
-def space_up(e):
-    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_SPACE
+def h_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_h
+
+def h_up(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_h
 
 def time_out(e):
     return e[0] == 'TIME_OUT'
@@ -118,8 +121,8 @@ class StateMachine:
         self.hitter = hitter
         self.cur_state = Idle
         self.transitions = {
-            Idle: {space_down: Hit},
-            Hit: {space_up: Idle}
+            Idle: {h_down: Hit},
+            Hit: {h_up: Idle}
         }
 
     def start(self):

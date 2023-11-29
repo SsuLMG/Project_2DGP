@@ -18,6 +18,7 @@ from fielder_3b import Fielder_3b
 from fielder_lf import Fielder_lf
 from fielder_cf import Fielder_cf
 from fielder_rf import Fielder_rf
+from hitball import HitBall
 # boy = None
 
 def handle_events():
@@ -69,6 +70,9 @@ def init():
     game_world.add_object(fielder_rf, 1)
 
 
+    hitball = HitBall()
+    game_world.add_collision_pair('fielder:hitball', None, hitball)
+
 def finish():
     game_world.clear()
     pass
@@ -76,7 +80,7 @@ def finish():
 
 def update():
     game_world.update()
-    # fill here
+    game_world.handle_collisions()
 
 def draw():
     clear_canvas()
