@@ -1,5 +1,6 @@
 from pico2d import *
 import game_world
+import play_mode
 import game_framework
 import random
 import pitcher
@@ -9,8 +10,8 @@ import hitter
 def Lerp(A, B, Alpha):
     return A * (1 - Alpha) + B * Alpha
 
-final_ball_x = 900
-final_ball_y = 230
+final_ball_x = 940 #900
+final_ball_y = 280 #230
 
 class HitBall:
     image = None
@@ -24,6 +25,7 @@ class HitBall:
         self.x = Lerp(self.x, final_ball_x,0.01)
         self.y = Lerp(self.y, final_ball_y,0.01)
         self.image.draw(self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         if self.x < 25 or self.x > 1100:
@@ -33,10 +35,14 @@ class HitBall:
             game_world.remove_object(self)
 
     def get_bb(self):
-        return self.x - 30, self.y - 30, self.x + 30, self.y + 30
+        return self.x - 10, self.y - 10, self.x + 10, self.y + 10
     def handle_collision(self, group, other):
         match group:
-            case 'fielder:hitball':
-                #Ball.boy_eat_sound.play()
+            case 'fielder:ball':
                 game_world.remove_object(self)
 
+    def final_x(self):
+        return self.x
+
+    def final_y(self):
+        return self.y

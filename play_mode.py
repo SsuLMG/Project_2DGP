@@ -36,7 +36,7 @@ def init():
     global grass
     global hitter
     global pitcher
-
+    global score
     running = True
 
     grass = Grass()
@@ -72,6 +72,22 @@ def init():
 
     hitball = HitBall()
     game_world.add_collision_pair('fielder:hitball', None, hitball)
+
+    score = 0
+
+    if hitball.final_x() < 227 and hitball.final_y() > 480:
+        score += 500
+    elif hitball.final_x() >= 227 and hitball.final_x() < 434 and hitball.final_y() > 480:
+        score += 700
+    elif hitball.final_x() >= 434 and hitball.final_x() < 706 and hitball.final_y() > 480:
+        score += 1000
+    elif hitball.final_x() >= 706 and hitball.final_x() < 904 and hitball.final_y() > 480:
+        score += 700
+    elif hitball.final_x() >= 904 and hitball.final_y() > 500:
+        score += 500
+
+    grass.font.draw(50, 50, f'{score:02d}', (255, 255, 0))
+    print(score)
 
 def finish():
     game_world.clear()
