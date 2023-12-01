@@ -48,43 +48,53 @@ def init():
     pitcher = Pitcher()
     game_world.add_object(pitcher, 1)
 
+    fielderList = []
     fielder = Fielder()
     game_world.add_object(fielder, 1)
+    fielderList.append(fielder)
 
     fielder_2b = Fielder_2b()
     game_world.add_object(fielder_2b, 1)
+    fielderList.append(fielder_2b)
 
     fielder_ss = Fielder_ss()
     game_world.add_object(fielder_ss, 1)
+    fielderList.append(fielder_ss)
 
     fielder_3b = Fielder_3b()
     game_world.add_object(fielder_3b, 1)
+    fielderList.append(fielder_3b)
 
     fielder_lf = Fielder_lf()
     game_world.add_object(fielder_lf, 1)
+    fielderList.append(fielder_lf)
 
     fielder_cf = Fielder_cf()
     game_world.add_object(fielder_cf, 1)
+    fielderList.append(fielder_cf)
 
     fielder_rf = Fielder_rf()
     game_world.add_object(fielder_rf, 1)
+    fielderList.append(fielder_rf)
 
+    for f in fielderList:
+        game_world.add_collision_pair('fielder:hitball',f, None)
 
-    hitball = HitBall()
-    game_world.add_collision_pair('fielder:hitball', None, hitball)
-
+    # hitball = HitBall()
+    # game_world.add_collision_pair('fielder:hitball', None, hitball)
+    #
     score = 0
-
-    if hitball.final_x() < 227 and hitball.final_y() > 480:
-        score += 500
-    elif hitball.final_x() >= 227 and hitball.final_x() < 434 and hitball.final_y() > 480:
-        score += 700
-    elif hitball.final_x() >= 434 and hitball.final_x() < 706 and hitball.final_y() > 480:
-        score += 1000
-    elif hitball.final_x() >= 706 and hitball.final_x() < 904 and hitball.final_y() > 480:
-        score += 700
-    elif hitball.final_x() >= 904 and hitball.final_y() > 500:
-        score += 500
+    #
+    # if hitball.final_x() < 227 and hitball.final_y() > 480:
+    #     score += 500
+    # elif hitball.final_x() >= 227 and hitball.final_x() < 434 and hitball.final_y() > 480:
+    #     score += 700
+    # elif hitball.final_x() >= 434 and hitball.final_x() < 706 and hitball.final_y() > 480:
+    #     score += 1000
+    # elif hitball.final_x() >= 706 and hitball.final_x() < 904 and hitball.final_y() > 480:
+    #     score += 700
+    # elif hitball.final_x() >= 904 and hitball.final_y() > 500:
+    #     score += 500
 
     grass.font.draw(50, 50, f'{score:02d}', (255, 255, 0))
     print(score)

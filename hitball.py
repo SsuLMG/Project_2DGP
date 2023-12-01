@@ -20,6 +20,8 @@ class HitBall:
         if HitBall.image == None:
             HitBall.image = load_image('baseball.png')
         self.x, self.y, self.velocity = x + 80, y, velocity
+        game_world.add_object(self)
+        game_world.add_collision_pair('fielder:hitball', None, self)
 
     def draw(self):
         self.x = Lerp(self.x, final_ball_x,0.01)
@@ -38,7 +40,7 @@ class HitBall:
         return self.x - 10, self.y - 10, self.x + 10, self.y + 10
     def handle_collision(self, group, other):
         match group:
-            case 'fielder:ball':
+            case 'fielder:hitball':
                 game_world.remove_object(self)
 
     def final_x(self):
