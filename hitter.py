@@ -163,7 +163,6 @@ class Hitter:
             self.ball_count -= 1
             ball = HitBall(self.x, self.y, self.face_dir*10)
 
-
     def update(self):
         self.state_machine.update()
 
