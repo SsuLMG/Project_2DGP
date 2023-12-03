@@ -9,6 +9,7 @@ class Ball:
     def __init__(self, x = 495, y = 50, velocity = 1):
         if Ball.image == None:
             Ball.image = load_image('baseball.png')
+        game_world.add_object(self)
         self.x, self.y, self.velocity = x, y, velocity
 
     def draw(self):
