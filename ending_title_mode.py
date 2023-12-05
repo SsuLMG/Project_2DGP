@@ -3,13 +3,18 @@ from sdl2 import SDL_KEYDOWN, SDL_QUIT, SDLK_ESCAPE, SDLK_SPACE
 
 import game_framework
 import play_mode
+from static import *
+from pico2d import *
 
+font = None
 
 def init():
     global image
     global running
     global logo_start_time
-    image = load_image('title.png')
+    global font
+    image = load_image('baseball.png')
+    font = load_font('ENCR10B.TTF', 100)
     running = True
     logo_start_time = get_time()
 
@@ -25,8 +30,16 @@ def update():
         game_framework.quit()
 
 def draw():
+    global font
     clear_canvas()
-    image.draw(1172/2, 764/2)
+    image.draw(1172/2, 764/2, 1172, 764)
+    if Define.instance.score < 5000:
+        font.draw(1172/2 - 500, 764/2 - 25, f'Bad Score:', (255, 255, 0))
+        font.draw(1172/2 - 200, 764/2 - 100, f'{Define.instance.score:02d}', (255, 255, 0))
+    else:
+        font.draw(1172 / 2 - 500, 764 / 2 - 25, f'Great Score:', (255, 255, 0))
+        font.draw(1172 / 2 - 200, 764 / 2 - 100, f'{Define.instance.score:02d}', (255, 255, 0))
+
     update_canvas()
 
 def handle_events():
@@ -36,5 +49,3 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            game_framework.change_mode(play_mode)

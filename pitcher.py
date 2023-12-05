@@ -169,7 +169,7 @@ class Pitcher:
         self.font = load_font('ENCR10B.TTF', 16)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
-        self.ball_count = 10
+        self.ball_count = 100
 
 
     def fire_ball(self):

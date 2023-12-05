@@ -1,6 +1,8 @@
 import random
 
 from pico2d import *
+
+import ending_title_mode
 import game_framework
 
 import game_world
@@ -19,6 +21,7 @@ from fielder_lf import Fielder_lf
 from fielder_cf import Fielder_cf
 from fielder_rf import Fielder_rf
 from static import *
+import ending_title_mode
 # boy = None
 def handle_events():
     events = get_events()
@@ -88,14 +91,19 @@ def finish():
 
 
 def update():
+    global health
     game_world.update()
     game_world.handle_collisions()
+    if Define.instance.health == 0:
+        game_framework.change_mode(ending_title_mode)
 
 def draw():
     global score
+    global health
     clear_canvas()
     game_world.render()
     grass.font.draw(50, 50, f'{Define.instance.score:02d}', (255, 255, 0))
+    grass.font.draw(100, 50, f'{Define.instance.health:02d}', (255, 255, 0))
     update_canvas()
 
 def pause():

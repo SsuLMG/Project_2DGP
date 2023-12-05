@@ -32,6 +32,7 @@ class HitBall:
 
     def update(self):
         score = Define.instance.score
+        health = Define.instance.health
 
         if self.x < 25 or self.x > 1100:
             game_world.remove_object(self)
@@ -42,16 +43,22 @@ class HitBall:
         if self.y >= 480:
             if self.x < 227:
                 score += 500
+                health -= 1
             elif self.x >= 227 and self.x < 434:
                 score += 700
+                health -= 1
             elif self.x >= 434 and self.x < 706:
                 score += 1000
+                health -= 1
             elif self.x >= 706 and self.x < 904:
                 score += 700
+                health -= 1
             elif self.x >= 904:
                 score += 500
+                health -= 1
 
             Define.instance.score = score
+            Define.instance.health = health
 
 
     def get_bb(self):

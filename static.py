@@ -5,3 +5,4 @@ class Define:
         if Define.instance is None:
             Define.instance = self
         self.score = 0
+        self.health = 10
