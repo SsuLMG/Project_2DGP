@@ -1,5 +1,5 @@
 from pico2d import get_time, load_image, load_font, clamp, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT, \
-    draw_rectangle
+    draw_rectangle, load_wav
 from sdl2 import SDLK_h
 
 from hitball import HitBall
@@ -156,12 +156,15 @@ class Hitter:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
         self.ball_count = 100
+        self.hit_sound = load_wav('hit_sound.wav')
+        self.hit_sound.set_volume(32)
 
 
     def fire_ball(self):
         if self.ball_count > 0:
             self.ball_count -= 1
             ball = HitBall(self.x, self.y, self.face_dir*10)
+            self.hit_sound.play()
 
     def update(self):
         self.state_machine.update()
