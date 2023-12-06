@@ -95,7 +95,7 @@ class Fielder:
 
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 20, self.y - 30, self.x + 20, self.y + 30
