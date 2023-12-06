@@ -1,0 +1,31 @@
+# 메인 파일 이름을 지정하세요.
+main_file = 'main.py'
+
+# 데이타 파일들을 지정하세요.
+data_files = [
+    'animation_sheet.png',
+'ball21x21.png',
+'ball41x41.png',
+'baseball.png',
+'batter_animation.png',
+'bird_animation.png',
+'Chopper_batter_animation.png',
+    'fielder.png',
+'grass.png',
+'ENCR10B.TTF',
+'Pitcher.png',
+'pitcher_animation.png',
+'Players.png',
+'stadium.png',
+'Text.png',
+    'title.png',
+    'out.wav',
+    'hit_sound.wav',
+    'enter_sound.wav'
+]
+
+# 데이타가 들어있는 폴더들을 지정하세요.
+data_folders = [
+    'zombie'
+]
+
