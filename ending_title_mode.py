@@ -34,10 +34,10 @@ def draw():
     clear_canvas()
     image.draw(1172/2, 764/2, 1172, 764)
     if Define.instance.score < 5000:
-        font.draw(1172/2 - 500, 764/2 - 25, f'Bad Score:', (255, 255, 0))
+        font.draw(1172/2 - 200, 764/2 - 25, f'Bad Score:', (255, 255, 0))
         font.draw(1172/2 - 200, 764/2 - 100, f'{Define.instance.score:02d}', (255, 255, 0))
     else:
-        font.draw(1172 / 2 - 500, 764 / 2 - 25, f'Great Score:', (255, 255, 0))
+        font.draw(1172 / 2 - 200, 764 / 2 - 25, f'Great Score:', (255, 255, 0))
         font.draw(1172 / 2 - 200, 764 / 2 - 100, f'{Define.instance.score:02d}', (255, 255, 0))
 
     update_canvas()
